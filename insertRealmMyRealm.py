@@ -2,8 +2,9 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
-# import pandas as pd
+import pandas as pd
 import json
+# from pandas import json
 from datetime import datetime
 from graphqlclient import GraphQLClient
 import requests
@@ -12,7 +13,7 @@ import uuid
 import csv
 
 urlRealm = 'https://demobsc.us1a.cloud.realm.io'
-MyRealm = '~/myRealm'
+MyRealm = 'bd204e2c5813ea61007af86b16c7a449/myRealm'
 fileToken = 'realm-token.json'
 userRealm = 'admindemobsc'
 passRealm = 'V4zPU8FjL6kAf_X'
@@ -87,40 +88,39 @@ def mutationApp(newapp):
     response = client.execute(mutation,variables={'input': newapp})
     return response
 
-def mutationAppConfiguration(appconfiguration):
-    print(app)
+def mutationActionsMenu(actionsmenu):
+    # print(app)
     mutation = """
-    mutation CreateAppConfiguration($input: AppConfigurationInput!) {
-      createAppConfiguration(input: $input, updatePolicy: ALL) {
+    mutation CreateActionsMenus($input: [ActionsMenuInput!]) {
+      createActionsMenus(input: $input, updatePolicy: ALL) {
         uuid
       }
     }
     """
-    response = client.execute(mutation,variables={'input': appconfiguration})
+    response = client.execute(mutation,variables={'input': actionsmenu})
     return response
 
-def mutationAppCustom(appcustom):
+def mutationTypeContent(typecontent):
     print(app)
     mutation = """
-    mutation CreateAppCustom($input: AppCustomInput!) {
-      createAppCustom(input: $input, updatePolicy: ALL) {
+    mutation CreateTypeContent($input: TypeContentInput!) {
+      createTypeContent(input: $input, updatePolicy: ALL) {
         uuid
       }
     }
     """
-    response = client.execute(mutation,variables={'input': appcustom})
+    response = client.execute(mutation,variables={'input': typecontent})
     return response
 
-def mutationLanguage(languages):
-    print(languages)
+def mutationMenu(menu):
     mutation = """
-    mutation CreateLanguages($input: [LanguageInput!]) {
-      createLanguages(input: $input, updatePolicy: ALL) {
+    mutation CreateMenu($input: MenuInput!) {
+      createMenu(input: $input, updatePolicy: ALL) {
         uuid
       }
     }
     """
-    response = client.execute(mutation,variables={'input': languages})
+    response = client.execute(mutation,variables={'input': menu})
     return response
 
 def mutationTranslate(translates):
@@ -147,16 +147,16 @@ def mutationAppImages(appimages):
     response = client.execute(mutation,variables={'input': appimages})
     return response
 
-def mutationAppContent(appcontent):
+def mutationContent(contents):
     # print(translates)
     mutation = """
-    mutation CreateAppContents($input: [AppContentInput!]) {
-      createAppContents(input: $input, updatePolicy: ALL) {
+    mutation CreateContents($input: [ContentInput!]) {
+      createContents(input: $input, updatePolicy: ALL) {
         uuid
       }
     }
     """
-    response = client.execute(mutation,variables={'input': appcontent})
+    response = client.execute(mutation,variables={'input': contents})
     return response
 
 def mutationAppContentSection(appcontentsection):
@@ -230,53 +230,90 @@ app = {
     "name": 'BSC'
         }
 
-appconfiguration = {
-    "uuid": "1",
-    "app_id": {"uuid": "1"},
-    "host": 'string?',
-    "port": 443,
-    "database": 'string?',
-    "username": 'string?', 
-    "password": 'string?',
-    "protocol": 'string?',
-    "token": 'string?',
-    "secret": 'string?'  
-}
-
-appcustom = {
-    "uuid": "1",
-    "app_id": {"uuid": "1"},
-     "icon": 'https://3.bp.blogspot.com/-4Jq0XHT9G-g/WWADtk_BlyI/AAAAAAABMEg/q843jZLXcFQLxv0yGpmc_W3N9SBFGViSACLcBGAs/s1600/Barcelona%2BSporting%2BClub256x.png',
-    # "icon_alt": 'string',
-    "loading_icon": 'https://3.bp.blogspot.com/-4Jq0XHT9G-g/WWADtk_BlyI/AAAAAAABMEg/q843jZLXcFQLxv0yGpmc_W3N9SBFGViSACLcBGAs/s1600/Barcelona%2BSporting%2BClub256x.png',
-    "loading_bg": '#EEC413',
-    "theme_color_primary": '#FFF218',
-    "theme_color_secondary": '#ff4000',
-    # "theme_color_success": 'string',
-    # "theme_color_info": 'string',
-    # "theme_color_warning": 'string',
-    # "theme_color_danger": 'string',
-    # "theme_bg": 'string?',
-    # "theme_bg_alt": 'string?',
-    "login_bg": 'https://instagram.fvno2-1.fna.fbcdn.net/v/t51.2885-15/e35/s1080x1080/80845296_178720716867553_5572538001568266457_n.jpg?_nc_ht=instagram.fvno2-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=bhqbZPWmf2cAX_IN_R_&oh=230a8c8e1debb18e74baa59ff725c89f&oe=5ED5A90F',
-    # "login_mode": 'string?',
-    "theme_color_text_primary": '#FFFFFF',
-    "theme_color_text_secondary": '#013978'
-}
-
-
-languages = [
+actionsmenu = [
     {
-        "uuid": "1",
-        "name": "Spanish",
-        "language": "es"
+      "uuid": "1a3e79af-22ae-44a3-a2d8-0b61a6d0d314",
+      "name": "Home",
+      "icon": "home",
+      "sections": [
+       {
+      "uuid": "4c992b5f-5bdd-45ed-a3c4-bb7c7d4ff181",
+      "sequence": 1,
+      "limit": 3,
+      "name": "Pròximos eventos"
     },
     {
-        "uuid": "2",
-        "name": "English",
-        "language": "en"
+      "uuid": "a20166ca-300f-4e5b-ab3c-c27178999155",
+      "sequence": 3,
+      "limit": 4,
+      "name": "Màs comprados"
+    },
+    {
+      "uuid": "9f68653a-0451-4255-b68d-804653283112",
+      "sequence": 2,
+      "limit": 3,
+      "name": "Mas buscados"
+    },
+    {
+      "uuid": "a85b07a2-67b4-4985-bb14-1dc957b499ed",
+      "sequence": 4,
+      "limit": 2,
+      "name": "Tendencias"
     }
-]
+      ],
+      "icon_type": "fontisto"
+    },
+    {
+      "uuid": "f458b6f5-e298-41ea-93df-fb246915c2c7",
+      "name": "Tickets",
+      "icon": "ticket",
+      "sections": [],
+      "icon_type": "entypo"
+    },
+    {
+      "uuid": "707e2ca8-7326-4345-adfe-b93bab14e2b2",
+      "name": "Search",
+      "icon": "search",
+      "sections": [],
+      "icon_type": "fontisto"
+    },
+    {
+      "uuid": "97ff03c3-039d-4863-bcdd-f40a0b22bc67",
+      "name": "Menu",
+      "icon": "menu",
+      "sections": [],
+      "icon_type": "material-icons"
+    },
+    {
+      "uuid": "4a5d0a69-64b1-4440-b536-dbb57544424b",
+      "name": "Wish",
+      "icon": "heart",
+      "sections": [],
+      "icon_type": "material-community"
+    }
+  ]
+
+typecontent = {
+      "uuid": "769acbd6-3791-4206-bc85-c5d674d8f991",
+      "app": {"uuid": "1"},
+      "name": "Tickets",
+      "action": {"uuid": "ca7259e5-986b-45be-8524-88e26d170592"}
+    #   "isItemMenu": 
+    }
+
+
+
+menu = {
+      "uuid": "55f66633-5cae-4450-9ac4-5c0be4329c7c",
+      "app": {"uuid": "1"},
+      "actionsMenu": [
+        {"uuid": "1a3e79af-22ae-44a3-a2d8-0b61a6d0d314"},
+        {"uuid": "f458b6f5-e298-41ea-93df-fb246915c2c7"},
+        {"uuid": "707e2ca8-7326-4345-adfe-b93bab14e2b2"},
+        {"uuid": "97ff03c3-039d-4863-bcdd-f40a0b22bc67"},
+        {"uuid": "4a5d0a69-64b1-4440-b536-dbb57544424b"}
+      ]
+    }
 
 translates = [
     {
@@ -567,6 +604,79 @@ users = [
     }
 ]
 
+contents = [
+    {
+      "uuid": "4a4f5b86-79c3-4fde-a578-953486d73a93",
+      "app": {"uuid": "1"},
+      "typeContent": {"uuid": "769acbd6-3791-4206-bc85-c5d674d8f991"},
+      "section": {"uuid": "4c992b5f-5bdd-45ed-a3c4-bb7c7d4ff181"},
+      "name": "Barcelona vs Junior",
+      "title": "Barcelona vs Junior",
+      "subtitle": "Fase de Grupos Copa Libertadores",
+      "date": "2020-12-01T05:00:00.000Z",
+      "image": "https://depor.com/resizer/GVvRS8L0Tm75XnkhR9vRUujIwSQ=/980x528/smart/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/I2V3N7CDXRA6JM63ZKBVSMVGBA.jpg",
+      "summary": "Estadio Monumental Isidro Romero Carbo",
+    #   "create_at": null,
+    #   "date_expire": null
+    },
+    {
+      "uuid": "83b55f8c-0964-4f1a-8455-3894ef6cb893",
+      "app": {"uuid": "1"},
+      "typeContent": {"uuid": "769acbd6-3791-4206-bc85-c5d674d8f991"},
+      "section": {"uuid": "a20166ca-300f-4e5b-ab3c-c27178999155"},
+      "name": "Barcelona vs Junior",
+      "title": "Barcelona vs Junior",
+      "subtitle": "Fase de Grupos Copa Libertadores",
+      "date": "2020-12-01T05:00:00.000Z",
+      "image": "https://hinchaamarillo.com/wp-content/uploads/2019/05/bsc-vs-cdo.jpg",
+      "summary": "Estadio Monumental Isidro Romero Carbo",
+    #   "create_at": null,
+    #   "date_expire": null
+    },
+    {
+      "uuid": "68ab128a-ee51-41db-b1fe-fa658a66be2c",
+      "app": {"uuid": "1"},
+      "typeContent": {"uuid": "769acbd6-3791-4206-bc85-c5d674d8f991"},
+      "section": {"uuid": "9f68653a-0451-4255-b68d-804653283112"},
+      "name": "Barcelona vs Junior",
+      "title": "Barcelona vs Junior",
+      "subtitle": "Fase de Grupos Copa Libertadores",
+      "date": "2020-12-01T05:00:00.000Z",
+      "image": "https://depor.com/resizer/GVvRS8L0Tm75XnkhR9vRUujIwSQ=/980x528/smart/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/I2V3N7CDXRA6JM63ZKBVSMVGBA.jpg",
+      "summary": "Estadio Monumental Isidro Romero Carbo",
+    #   "create_at": null,
+    #   "date_expire": null
+    },
+    {
+      "uuid": "1a573f06-d0f6-4cca-9801-69a0a3dc65c7",
+      "app": {"uuid": "1"},
+      "typeContent": {"uuid": "769acbd6-3791-4206-bc85-c5d674d8f991"},
+      "section": {"uuid": "9f68653a-0451-4255-b68d-804653283112"},
+      "name": "Barcelona vs Junior",
+      "title": "Barcelona vs Junior",
+      "subtitle": "Fase de Grupos Copa Libertadores",
+      "date": "2020-12-01T05:00:00.000Z",
+      "image": "https://hinchaamarillo.com/wp-content/uploads/2019/05/bsc-vs-cdo.jpg",
+      "summary": "Estadio Monumental Isidro Romero Carbo",
+    #   "create_at": null,
+    #   "date_expire": null
+    },
+    {
+      "uuid": "47f5ffa3-b51f-4548-9878-c5a3c1aff2a2",
+      "app": {"uuid": "1"},
+      "typeContent": {"uuid": "769acbd6-3791-4206-bc85-c5d674d8f991"},
+      "section": {"uuid": "9f68653a-0451-4255-b68d-804653283112"},
+      "name": "Barcelona vs Junior",
+      "title": "Barcelona vs Junior",
+      "subtitle": "Fase de Grupos Copa Libertadores",
+      "date": "2020-12-01T05:00:00.000Z",
+      "image": "https://hinchaamarillo.com/wp-content/uploads/2019/05/bsc-vs-cdo.jpg",
+      "summary": "Estadio Monumental Isidro Romero Carbo",
+    #   "create_at": null,
+    #   "date_expire": null
+    }
+  ]
+
 # event = {
 #     "uuid": "1",
 #     "name": "Partido Copa libertadores Fase 3 Barcelona vs Cerro Porteno",
@@ -646,8 +756,22 @@ users = [
 
 
 
-resp = mutationApp(app)
+# resp = mutationApp(app)
+# print(resp)
+
+# resp = mutationActionsMenu(actionsmenu)
+# print(resp)
+
+# resp = mutationMenu(menu)
+# print(resp)
+
+# resp = mutationTypeContent(typecontent)
+# print(resp)
+
+resp = mutationContent(contents)
 print(resp)
+
+
 # resp = mutationAppCustom(appcustom)
 # resp = mutationLanguage(languages)
 # print(resp)
@@ -662,5 +786,5 @@ print(resp)
 # resp = mutationCards(cards)
 # print(resp)
 
-resp = mutationUsers(users)
-print(resp)
+# resp = mutationUsers(users)
+# print(resp)
